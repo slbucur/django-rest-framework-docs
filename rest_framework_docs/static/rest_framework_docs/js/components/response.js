@@ -15,6 +15,20 @@ var Response = React.createClass({
       payload: nextProps.payload
     });
   },
+  
+  componentDidUpdate: function() {
+	var requestHeight = window.getComputedStyle(document.querySelector('#request')).height
+	console.log('requestHeight '+requestHeight)
+	var response = document.querySelector('#response')
+	var responseBody = document.querySelector('#responseBody')
+	var responseResponseHeight = parseInt(window.getComputedStyle(document.querySelector('#responseResponse')).height)
+	console.log(responseResponseHeight)
+	var responseStatusHeight = parseInt(window.getComputedStyle(document.querySelector('#responseStatus')).height)
+	console.log(responseStatusHeight)
+	response.style.height = parseInt(requestHeight)
+	responseBody.style.height = (parseInt(requestHeight) - responseResponseHeight - responseStatusHeight) + 'px'
+	console.log(responseBody.style.height)
+  },
 
   saveToken: function () {
     window.token = 'Token ' + this.state.payload.body.token;
@@ -38,10 +52,10 @@ var Response = React.createClass({
 
     return (
       <div>
-        <h3>Response <span className={statusCodeClass}>{this.props.payload.status}</span></h3>
+        <h3 id="responseResponse">Response <span className={statusCodeClass}>{this.props.payload.status}</span></h3>
 
-        <div><strong>Status</strong>: <span className='status-text'>{statusText}</span></div>
-        <pre><code dangerouslySetInnerHTML={{__html: responseJSON}}></code></pre>
+        <div id="responseStatus"><strong>Status</strong>: <span className='status-text'>{statusText}</span></div>
+        <pre id="responseBody" style={{overflowY:"scroll"}}><code dangerouslySetInnerHTML={{__html: responseJSON}}></code></pre>
 
         {hasToken ? (
           <div className='well well-default text-center'>

@@ -86,6 +86,7 @@ var Request = React.createClass({
   },
 
   handleDataFieldChange: function (value, fieldName) {
+	value = isNaN(parseInt(value)) ? value : parseInt(value);
     var data = this.state.data;
     data[fieldName] = value;
     this.setState({

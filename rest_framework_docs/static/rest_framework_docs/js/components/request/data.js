@@ -36,6 +36,7 @@ var Data = React.createClass({
   _renderTextInput: function (field, key) {
     var value = this.props.data[field.name];
     var type = field.name == 'password' ? 'password' : 'text';
+
     return (
       <FieldText
         key={key}
@@ -73,7 +74,9 @@ var Data = React.createClass({
     return (
       <div>
         {this.props.fields.length ? <Header title='Data' /> : null}
-        {this._renderFields()}
+        <div id="fields" style={{overflowY:"scroll", overflowX:"hidden", height:"250px", paddingRight:"10px"}}>
+        	{this._renderFields()}
+        </div>
       </div>
     );
   }

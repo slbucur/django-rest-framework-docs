@@ -1,9 +1,9 @@
 from setuptools import find_packages, setup
 
 setup(
-    name="drfdocs",
+    name="drfdocs_Cegeka",
     version=__import__('rest_framework_docs').__version__,
-    author="Emmanouil Konstantinidis",
+    author="Cegeka sw_dev",
     author_email="manos@iamemmanouil.com",
     packages=find_packages(),
     include_package_data=True,
