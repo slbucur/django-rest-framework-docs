@@ -15,6 +15,7 @@ class DRFDocsView(TemplateView):
             raise Http404("Django Rest Framework Docs are hidden. Check your settings.")
 
         context = super(DRFDocsView, self).get_context_data(**kwargs)
+        print 'drf context: {}'.format(context['view'].drf_router)
         docs = ApiDocumentation(drf_router=self.drf_router)
         endpoints = docs.get_endpoints()
 
@@ -24,4 +25,7 @@ class DRFDocsView(TemplateView):
 
         context['query'] = query
         context['endpoints'] = endpoints
+        print 'drf new context: {}'.format(context)
+        for endpoint in endpoints:
+            print 'pattern: {} | callback: {} | path: {} | name_parent: {}'.format(endpoint.pattern, endpoint.callback.func_dict, endpoint.path, endpoint.name_parent)
         return context
