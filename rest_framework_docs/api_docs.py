@@ -23,7 +23,7 @@ class ApiDocumentation(object):
             self.get_all_view_names(root_urlconf.urlpatterns)
 
     def get_all_view_names(self, urlpatterns, parent_pattern=None):
-        ignored_namespaces = ['dynamic_data', 'api_camis']
+        ignored_namespaces = ['dynamic_data']
         for pattern in urlpatterns:
             if [pattern for ignored_ns in ignored_namespaces if ignored_ns in pattern.regex.pattern]:
                 continue        
