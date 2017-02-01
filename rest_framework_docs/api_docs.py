@@ -28,6 +28,8 @@ class ApiDocumentation(object):
         only_urls = settings['INCLUDE_ONLY_URLS']
         for pattern in urlpatterns:
             # if only_urls exists, ignore urls that are not in it
+            print only_urls
+            print pattern.regex.pattern
             if only_urls and not [only_url for only_url in only_urls if only_url in pattern.regex.pattern]:
                 continue
             if [pattern for ignored_ns in ignored_namespaces if ignored_ns in pattern.regex.pattern]:
