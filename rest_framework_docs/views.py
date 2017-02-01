@@ -24,5 +24,4 @@ class DRFDocsView(TemplateView):
 
         context['query'] = query
         context['endpoints'] = endpoints
-        context['settings'] = settings
         return context
