@@ -31,7 +31,7 @@ class ApiDocumentation(object):
             pattern_so_far = parent_pattern_so_far + pattern.regex.pattern
             # if only_urls exists, ignore urls that are not in it
             print only_urls
-            print pattern.regex.pattern
+            print pattern_so_far
             if only_urls and not [only_url for only_url in only_urls if only_url in pattern_so_far]:
                 continue
             if [pattern for ignored_ns in ignored_namespaces if ignored_ns in pattern.regex.pattern]:
