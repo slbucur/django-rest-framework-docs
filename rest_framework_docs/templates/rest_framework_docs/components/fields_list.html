@@ -11,9 +11,7 @@
     {% endif %}
 
     {% if field.sub_fields %}
-      {% if not settings.IGNORE_SUB_FIELDS %}
-        {%include "rest_framework_docs/components/fields_list.html" with fields=field.sub_fields %}
-      {% if not settings.IGNORE_SUB_FIELDS %}
+      <!-- ignore this case on django < 1.6 -->
     {% endif %}
   </li>
   {% endfor %}
