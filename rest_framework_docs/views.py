@@ -2,7 +2,7 @@ from django.http import Http404
 from django.views.generic.base import TemplateView
 from rest_framework_docs.api_docs import ApiDocumentation
 from rest_framework_docs.settings import DRFSettings
-
+from django.conf import settings as DjangoSettings
 
 class DRFDocsView(TemplateView):
 
@@ -24,4 +24,5 @@ class DRFDocsView(TemplateView):
 
         context['query'] = query
         context['endpoints'] = endpoints
+        context['settings'] = DjangoSettings['DRF_DOCS']
         return context

@@ -11,7 +11,9 @@
     {% endif %}
 
     {% if field.sub_fields %}
-      {%include "rest_framework_docs/components/fields_list_copy.html" with fields=field.sub_fields %}
+      {% if not settings.IGNORE_SUB_FIELDS %}
+        {%include "rest_framework_docs/components/fields_list.html" with fields=field.sub_fields %}
+      {% if not settings.IGNORE_SUB_FIELDS %}
     {% endif %}
   </li>
   {% endfor %}
