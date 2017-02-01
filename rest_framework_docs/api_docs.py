@@ -5,7 +5,7 @@ from django.core.urlresolvers import RegexURLResolver, RegexURLPattern
 from django.utils.module_loading import import_string
 from rest_framework.views import APIView
 from rest_framework_docs.api_endpoint import ApiEndpoint
-
+from rest_framework_docs.settings import DRFSettings
 
 class ApiDocumentation(object):
 
@@ -24,6 +24,8 @@ class ApiDocumentation(object):
 
     def get_all_view_names(self, urlpatterns, parent_pattern=None):
         ignored_namespaces = ['dynamic_data']
+        settings = DRFSettings().settings
+
         for pattern in urlpatterns:
             if [pattern for ignored_ns in ignored_namespaces if ignored_ns in pattern.regex.pattern]:
                 continue        
@@ -32,7 +34,7 @@ class ApiDocumentation(object):
                 self.get_all_view_names(urlpatterns=pattern.url_patterns, parent_pattern=parent_pattern)
             elif isinstance(pattern, RegexURLPattern) and self._is_drf_view(pattern) and not self._is_format_endpoint(pattern):
                     
-                if re.match('^\^([\w]+/)+\$$', pattern.regex.pattern):
+                if settings['IGNORE_URL_REGEX'] and re.match(settings['IGNORE_URL_REGEX'], pattern.regex.pattern):
                     api_endpoint = ApiEndpoint(pattern, parent_pattern, self.drf_router)
                     self.endpoints.append(api_endpoint)
 
