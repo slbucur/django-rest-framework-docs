@@ -25,10 +25,13 @@ class ApiDocumentation(object):
     def get_all_view_names(self, urlpatterns, parent_pattern=None):
         ignored_namespaces = ['dynamic_data']
         settings = DRFSettings().settings
-
+        only_urls = settings['INCLUDE_ONLY_URLS']
         for pattern in urlpatterns:
+            # if only_urls exists, ignore urls that are not in it
+            if only_urls and not [only_url for only_url in only_urls if only_url in pattern.regex.pattern]:
+                continue
             if [pattern for ignored_ns in ignored_namespaces if ignored_ns in pattern.regex.pattern]:
-                continue        
+                continue
             if isinstance(pattern, RegexURLResolver):
                 parent_pattern = None if pattern._regex == "^" else pattern
                 self.get_all_view_names(urlpatterns=pattern.url_patterns, parent_pattern=parent_pattern)
