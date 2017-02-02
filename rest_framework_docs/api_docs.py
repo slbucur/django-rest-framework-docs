@@ -29,11 +29,11 @@ class ApiDocumentation(object):
 
         for pattern in urlpatterns:
             pattern_so_far = parent_pattern_so_far + pattern.regex.pattern
-            # if only_urls exists, ignore urls that are not in it
-            print only_urls
-            print pattern_so_far
-            if only_urls and not [only_url for only_url in only_urls if only_url in pattern_so_far]:
-                continue
+            if isinstance(pattern, RegexURLPattern):
+                # if only_urls exists, ignore urls that are not in it
+                # don't do this for Parents
+                if only_urls and not [only_url for only_url in only_urls if only_url in pattern_so_far]:
+                    continue
             if [pattern for ignored_ns in ignored_namespaces if ignored_ns in pattern.regex.pattern]:
                 continue
             if isinstance(pattern, RegexURLResolver):
@@ -41,7 +41,6 @@ class ApiDocumentation(object):
                 self.get_all_view_names(urlpatterns=pattern.url_patterns, parent_pattern=parent_pattern,
                                         parent_pattern_so_far=pattern_so_far)
             elif isinstance(pattern, RegexURLPattern) and self._is_drf_view(pattern) and not self._is_format_endpoint(pattern):
-                    
                 if not settings['IGNORE_URL_REGEX'] or re.match(settings['IGNORE_URL_REGEX'], pattern.regex.pattern):
                     api_endpoint = ApiEndpoint(pattern, parent_pattern, self.drf_router)
                     self.endpoints.append(api_endpoint)
