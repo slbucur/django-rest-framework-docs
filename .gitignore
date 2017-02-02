@@ -15,5 +15,7 @@ demo/node_modules/
 #rest_framework_docs/static/rest_framework_docs/js/dist.min.js
 
 rest_framework_docs/static/node_modules/
-#rest_framework_docs/static/rest_framework_docs/js/dist.min.js.map
+rest_framework_docs/static/rest_framework_docs/js/dist.min.js.map
 .idea/
+rest_framework_docs/static/npm-debug.log
+rest_framework_docs/static/yarn.lock
