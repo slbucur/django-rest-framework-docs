@@ -30,6 +30,7 @@ class ApiDocumentation(object):
         for pattern in urlpatterns:
             pattern_so_far = parent_pattern_so_far + pattern.regex.pattern
             if isinstance(pattern, RegexURLPattern):
+                print pattern.name
                 # if only_urls exists, ignore urls that are not in it
                 # don't do this for Parents
                 if only_urls and not [only_url for only_url in only_urls if only_url in pattern_so_far]:
