@@ -35,7 +35,7 @@ class ApiDocumentation(object):
                 # don't do this for Parents
                 if only_urls and not [only_url for only_url in only_urls if only_url in pattern_so_far]:
                     continue
-                if self.allowed_url_names and pattern.name not in self.allowed_url_names:
+                if self.allowed_url_names is not None and pattern.name not in self.allowed_url_names:
                     continue
 
             if [pattern for ignored_ns in ignored_namespaces if ignored_ns in pattern.regex.pattern]:
