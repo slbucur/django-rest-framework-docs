@@ -8,6 +8,7 @@ class DRFSettings(object):
             "HIDE_DOCS": self.get_setting("HIDE_DOCS") or False,
             "IGNORE_URL_REGEX": self.get_setting("IGNORE_SUB_FIELDS") or None,
             "INCLUDE_ONLY_URLS": self.get_setting("INCLUDE_ONLY_URLS") or None,
+            "ALLOWED_URL_NAMES": self.get_setting("ALLOWED_URL_NAMES") or None,
         }
 
     def get_setting(self, name):

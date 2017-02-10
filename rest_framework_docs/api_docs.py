@@ -9,9 +9,10 @@ from rest_framework_docs.settings import DRFSettings
 
 class ApiDocumentation(object):
 
-    def __init__(self, drf_router=None):
+    def __init__(self, drf_router=None, allowed_url_names=None):
         self.endpoints = []
         self.drf_router = drf_router
+        self.allowed_url_names = allowed_url_names
         try:
             root_urlconf = import_string(settings.ROOT_URLCONF)
         except ImportError:
@@ -30,11 +31,13 @@ class ApiDocumentation(object):
         for pattern in urlpatterns:
             pattern_so_far = parent_pattern_so_far + pattern.regex.pattern
             if isinstance(pattern, RegexURLPattern):
-                print pattern.name
                 # if only_urls exists, ignore urls that are not in it
                 # don't do this for Parents
                 if only_urls and not [only_url for only_url in only_urls if only_url in pattern_so_far]:
                     continue
+                if self.allowed_url_names and pattern.name not in self.allowed_url_names:
+                    continue
+
             if [pattern for ignored_ns in ignored_namespaces if ignored_ns in pattern.regex.pattern]:
                 continue
             if isinstance(pattern, RegexURLResolver):
